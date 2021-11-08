@@ -14,6 +14,7 @@ const postUsersSchema = Joi.object({
   });
 
 //회원가입 api
+//회원가입 할때 해당id에대한 단어장 생성
   router.post("/users", async (req, res) => {
     try {
       const { nickname, email,password, confirmPassword,} = await postUsersSchema.validateAsync(req.body);
@@ -39,7 +40,7 @@ const postUsersSchema = Joi.object({
       const user = new User({ email, nickname, password });
       await user.save();
 
-      //아무것도 안보내도 되지만
+      //프론트엔드 보면 아무것도 안보내도 되지만
       //REST api 원칙에따라 created는 201라는 status code적용
       res.status(201).send({});
     } catch (err) {
@@ -85,9 +86,10 @@ const postUsersSchema = Joi.object({
     }
   });
   
+  //유저 조회
   router.get("/users/me", authMiddleware, async (req, res) => {
     const { user } = res.locals;
-    console.log(user);
+    // console.log("user: ",user);
     res.send({
       user,
     });

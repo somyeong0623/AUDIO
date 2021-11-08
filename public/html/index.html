@@ -1,3 +1,4 @@
+<!-- 로그인 페이지 -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,7 +48,7 @@
   <body>
     <div
       class="jumbotron bg-sparta text-white text-center"
-      onclick="window.location.href='/'"
+      onclick="window.location.href='/html/'"
     >
       <h1 class="font-weight-bold">AUDIO</h1>
     </div>
@@ -98,7 +99,7 @@
               <button
                 type="button"
                 class="btn btn-outline-sparta btn-block"
-                onclick="window.location.href='/register.html'"
+                onclick="window.location.href='/html/register.html'"
               >
                 회원가입
               </button>
@@ -167,7 +168,7 @@
       if (localStorage.getItem("token")) {
         getSelf(function () {
           alert("이미 로그인이 되어있습니다. 메뉴 페이지로 이동합니다.");
-          window.location.replace("/menu.html");
+          window.location.replace("/html/menu.html");
         });
       }
 
@@ -184,7 +185,7 @@
           success: function (response) {
             console.log("로그인 success!");
             localStorage.setItem("token", response.token);
-            window.location.replace("/menu.html");
+            window.location.replace("/html/menu.html");
           },
           error: function (error) {
             console.log("로그인 error!");

@@ -25,7 +25,9 @@
     <link href="/mystyle.css" rel="stylesheet" />
     <title> AUDIO | menu</title>
     <style>
-
+      .wrap{
+        width: 80%;
+      }
       strong {
         padding-left:5px;
       }
@@ -103,9 +105,9 @@
     <nav
       class="navbar navbar-expand-sm navbar-dark bg-sparta justify-content-end"
     >
-      <a class="navbar-brand" href="/menu.html">
+      <a class="navbar-brand" href="/html/menu.html">
         <img
-          src="/home.png"
+          src="../img/home.png"
           width="30"
           height="30"
           class="d-inline-block align-top"
@@ -132,7 +134,7 @@
           <li class="nav-item" id="link-cart">
             <a class="nav-link" href="/cart.html">
               마이페이지<i
-                class="fas fa-user ml-2"
+                class="fa fa-user ml-2"
                 aria-hidden="true"
               ></i>
             </a>
@@ -192,8 +194,7 @@
       <div class="card mx-auto" style="max-width: 1000px">
         <div class="card-body">
             <div class="wrap_voca">
-                <div class="banner" onclick="window.location.href = '/'">
-                </div>
+                
                 <div class="search-box d-flex justify-content-center">
                     <input id="input-word" class="form-control" style="margin-right: 0.5rem">
                     <button class="btn btn-light" onclick="find_word()"><i class="fa fa-search"></i></button>
@@ -247,9 +248,49 @@
         user = u;
       });
 
+      function get_word(callback) {
+        console.log("get_word()함수 시작!");
+        $.ajax({
+            type: "GET",
+            url: `/api/words`,
+            headers: {
+              authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            success: function (response) {
+               // callback(response.user);
+               let html_temp="";
+                var words=response['words'];
+                console.log("words 출력 : ",words);
+                
+                for(let i=0; i<words.length; i++){
+                  let word= words[i];
+                  let value=word['word'];
+                  let definition=word['definition'];
+                  console.log( value, definition);
+
+                  
+                  html_temp=`
+                  <tr id="${value}">
+                    <td><a href="/html/voca_detail.html?word=${value}">${value}</a></td>
+                    <td>${definition}</td>
+                </tr>`
+                $("#tbody-box").append(html_temp);
+                }
+               
+            }
+        });
+    }
+
+      //사용자 단어장 조회(출력)
+      $(document).ready(function() {
+        console.log("로딩!");
+        get_word();
+      })
+
+
       function find_word(){
         let word = $("#input-word").val().toLowerCase();
-        window.location.href=`/voca_detail.html?word=${word}`;
+        window.location.href=`/html/voca_detail.html?word=${word}`;
           $.ajax({
             type: "GET",
             url: `https://owlbot.info/api/v4/dictionary/`+`${word}`,

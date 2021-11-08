@@ -4,11 +4,14 @@ const app = express();
 const router = express.Router();
 const sentenceRouter = require('./routers/sentence');
 const userRouter = require('./routers/user');
+const wordRouter=require('./routers/word');
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use(express.static("public"));
 app.use("/api",[sentenceRouter]);
 app.use("/api",[userRouter]);
+app.use("/api",[wordRouter]);
+
 
 mongoose.connect("mongodb://localhost/AUDIO", {
   useNewUrlParser: true,

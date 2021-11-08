@@ -23,23 +23,35 @@
       rel="stylesheet"
     />
     <link href="/mystyle.css" rel="stylesheet" />
+    <title> AUDIO | menu</title>
+    <style>
 
-    <title>스파르타 쇼핑몰 | 상품 상세</title>
+      strong {
+        padding-left:5px;
+      }
+      .card {
+        cursor: pointer;
+      }
+
+      html {
+        overflow: auto;
+      }
+    </style>
   </head>
 
   <body>
     <nav
       class="navbar navbar-expand-sm navbar-dark bg-sparta justify-content-end"
     >
-      <a class="navbar-brand" href="/goods.html">
+      <a class="navbar-brand" href="/html/menu.html">
         <img
-          src="/logo_big_tr.png"
+          src="../img/home.png"
           width="30"
           height="30"
           class="d-inline-block align-top"
           alt=""
         />
-        스파르타 쇼핑몰
+        <strong>AUDIO</strong>
       </a>
       <button
         class="navbar-toggler ml-auto"
@@ -55,13 +67,12 @@
       <div
         class="navbar-collapse collapse flex-grow-0 ml-auto"
         id="navbarSupportedContent"
-        style=""
       >
         <ul class="navbar-nav mr-auto text-right">
           <li class="nav-item" id="link-cart">
             <a class="nav-link" href="/cart.html">
-              장바구니<i
-                class="fa fa-shopping-cart ml-2"
+              마이페이지<i
+                class="fa fa-user ml-2"
                 aria-hidden="true"
               ></i>
             </a>
@@ -91,7 +102,9 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">정말로 로그아웃 하시겠습니까?</div>
+                  <div class="modal-body">
+                    정말로 로그아웃 하시겠습니까?
+                  </div>
                   <div class="modal-footer">
                     <button
                       type="button"
@@ -115,81 +128,49 @@
         </ul>
       </div>
     </nav>
-    <div class="wrap">
-      <div class="row no-gutters">
-        <div class="col-sm-5">
-          <img
-            src="https://cdn.pixabay.com/photo/2016/09/07/19/54/wines-1652455_1280.jpg"
-            class="card-img-top h-100"
-            alt="..."
-            id="goodsUrl"
-          />
-        </div>
-        <div class="col-sm-7 card-body px-3">
-          <div class="flex-fill mt-3">
-            <div class="d-flex justify-content-between mb-3">
-              <h5 style="display: inline" id="goodsName">상품 1</h5>
-              <span class="card-price" id="goodsPrice">$6.20</span>
-            </div>
-
-            <div class="form-group row mr-0">
-              <label for="numberSelect" class="col-4 col-form-label"
-                >수량</label
+    <div class="wrap menu-wrap">
+      <div class="card mx-auto" style="max-width: 480px">
+        <div class="card-body">
+          <div class="input-group mb-3">
+              <button
+                type="button"
+                class="btn btn-sparta btn-block"
+                onclick="window.location.href='/html/category.html'"
               >
-              <select class="custom-select col-8" id="numberSelect">
-                <option selected value="1">1개</option>
-                <option value="2">2개</option>
-                <option value="3">3개</option>
-                <option value="4">4개</option>
-                <option value="5">5개</option>
-              </select>
-            </div>
-            <hr />
-            <div class="row mb-3">
-              <div class="col-5">총 상품금액</div>
-              <div class="col-7 text-right" id="orderNumber">
-                <small class="mr-2 text-muted">총 수량 1개</small>$6.20
-              </div>
-            </div>
-            <div class="row mb-3">
-              <small class="col-12 text-right" id="pageViewerCount"></small>
-            </div>
-            <div class="row d-flex justify-content-around">
-              <div class="col-6 pr-2">
-                <button
-                  type="button"
-                  class="btn btn-outline-sparta btn-block"
-                  onclick="addToCart(goodsId, $('#numberSelect').val(), function() { $('#cartModal').modal('show'); })"
-                >
-                  장바구니
-                </button>
-              </div>
-              <div class="col-6 pl-2">
-                <button
-                  type="button"
-                  class="btn btn-sparta btn-block"
-                  onclick="buyNow()"
-                >
-                  바로 구매
-                </button>
-              </div>
-            </div>
+                회화 공부하기
+              </button>
+            
+              <button
+                type="button"
+                class="btn btn-outline-sparta btn-block"
+                onclick="window.location.href='/html/register.html'"
+              >
+                원어민 화상 연결
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-sparta btn-block"
+                onclick="window.location.href='/html/voca.html'"
+              >
+                나의 단어장
+              </button>
           </div>
         </div>
       </div>
     </div>
     <div
       class="modal text-left"
-      id="cartModal"
+      id="alertModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="cartModalLabel"
+      aria-labelledby="alertModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="cartModalLabel">알림</h5>
+            <h5 class="modal-title" id="alertModalLabel">알림</h5>
             <button
               type="button"
               class="close"
@@ -199,8 +180,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            장바구니에 담았습니다! 장바구니로 갈까요?
+          <div class="modal-body" id="alertText">
           </div>
           <div class="modal-footer">
             <button
@@ -208,19 +188,14 @@
               class="btn btn-outline-sparta"
               data-dismiss="modal"
             >
-              취소
-            </button>
-            <button
-              type="button"
-              class="btn btn-sparta"
-              onclick='window.location.href="/cart.html"'
-            >
-              장바구니
+              확인
             </button>
           </div>
         </div>
       </div>
     </div>
+   
+      
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
@@ -240,59 +215,15 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+
     <script src="/api.js"></script>
     <script>
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const goodsId = urlParams.get("goodsId");
-      let goods;
       let user;
       getSelf(function (u) {
+        console.log("getself함수 실행")
         user = u;
       });
-
-      $(document).ready(function () {
-        initAuthenticatePage();
-        bindSamePageViewerCountEvent(function (count) {
-          // NOTE: 나 포함인 값이라 항상 1명 초과일때만 메세지를 보여준다.
-          if (count > 1) {
-            $("#pageViewerCount").html(
-              `총 <b>${count}</b>명이 이 상품을 구경하고 있습니다!`
-            );
-          } else {
-            $("#pageViewerCount").html("");
-          }
-        });
-        getGoodsDetail(goodsId, function (g) {
-          goods = g;
-          renderItem(Number($("#numberSelect").val()));
-        });
-
-        $("#numberSelect").on("change", function () {
-          renderItem(Number($(this).val()));
-        });
-      });
-
-      function renderItem(orderNum) {
-        $("#orderNumber").html(
-          `<small class="mr-2 text-muted">총 수량 ${orderNum}개</small> $${(
-            orderNum * Number(goods.price)
-          ).toFixed(2)}`
-        );
-
-        $("#goodsUrl").attr("src", goods.thumbnailUrl);
-        $("#goodsName").text(goods.name);
-        $("#goodsPrice").text("$" + goods.price);
-      }
-
-      function buyNow() {
-        buyLocation([
-          {
-            goods,
-            quantity: Number($("#numberSelect").val()),
-          },
-        ]);
-      }
     </script>
+    
   </body>
 </html>
