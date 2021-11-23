@@ -14,7 +14,6 @@ const postUsersSchema = Joi.object({
   });
 
 //회원가입 api
-//회원가입 할때 해당id에대한 단어장 생성
   router.post("/users", async (req, res) => {
     try {
       const { nickname, email,password, confirmPassword,} = await postUsersSchema.validateAsync(req.body);
@@ -58,8 +57,6 @@ const postUsersSchema = Joi.object({
   });
 
 //로그인 api
-//로그인 행위는 jwt토큰을 그때그때 생산하므로 post로 간주하자.
-//GET는 body에 데이터를 실을 수 없음.(query string으로 하기엔 보안에 취약.)
   router.post("/auth", async (req, res) => {
     try {
       const { email, password } = await postAuthSchema.validateAsync(req.body);

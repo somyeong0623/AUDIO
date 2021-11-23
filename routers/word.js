@@ -17,10 +17,7 @@ router.post('/save_word',authMiddleware,async (req, res) => {
   console.log("word: ",word);
   console.log("definition: ",definition);
   const { user } = res.locals;
-  // console.log("user: ",user);
-  console.log("user['_id]: ", user['_id']);
   const userId=user['_id'];
-
 
   //현재 로그인한 userId --> (userid,word)==(현재userid, 추가하려는word) 이면 pass, 아니면 create
   isExist = await Words.find({ userId,word });

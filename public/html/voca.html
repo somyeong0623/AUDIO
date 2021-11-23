@@ -74,7 +74,7 @@
     }
 
     tr.highlight > td {
-        background-color: #e8344e;
+        background-color: #b232b2;
         color: white;
     }
 
@@ -96,6 +96,15 @@
 
     tbody:last-child tr:last-child td:last-child {
         border-radius: 0 0 10px 0;
+    }
+    .form-control{
+      background-color:#e9ecef;
+    }
+    .btn-light{
+      background-color:#e9ecef;
+    }
+    .card{
+      border-width:1.5px;
     }
       
     </style>
@@ -248,6 +257,8 @@
         user = u;
       });
 
+      let word_list = [];
+     
       function get_word(callback) {
         console.log("get_word()함수 시작!");
         $.ajax({
@@ -267,10 +278,11 @@
                   let value=word['word'];
                   let definition=word['definition'];
                   console.log( value, definition);
+                  word_list.push(value);
 
                   
                   html_temp=`
-                  <tr id="${value}">
+                  <tr id="word-${value}">
                     <td><a href="/html/voca_detail.html?word=${value}">${value}</a></td>
                     <td>${definition}</td>
                 </tr>`
@@ -290,21 +302,16 @@
 
       function find_word(){
         let word = $("#input-word").val().toLowerCase();
-        window.location.href=`/html/voca_detail.html?word=${word}`;
-          $.ajax({
-            type: "GET",
-            url: `https://owlbot.info/api/v4/dictionary/`+`${word}`,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Token 6a4b88df321214974fc1e09f7b0c653151078afc");
-            },
-            data: {},
-            error: function (xhr, status, error) {
-                alert("에러 발생!");
-            },
-            success: function (response) {
-                console.log(response)
-            }
-        })
+        if (word == "") {
+            alert("please write something first :)")
+            return
+        }
+        if (word_list.includes(word)) {
+            $(`#word-${word}`).addClass('highlight').siblings().removeClass('highlight');
+            $(`#word-${word}`).get(0).scrollIntoView();
+        } else {
+            window.location.href = `/html/voca_detail.html?word=${word}`;
+        }
       }
     </script>
     

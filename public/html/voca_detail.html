@@ -16,9 +16,10 @@
     <link href="/mystyle.css" rel="stylesheet" />
     <title> AUDIO | menu</title>
     <style>
-        .wrap{
+        .wrap {
             width: 80%;
-          }
+        }
+
         strong {
             padding-left: 5px;
         }
@@ -27,7 +28,7 @@
             cursor: pointer;
             margin-top: 30px;
             border-color: #b232b2 !important;
-            border-radius:10px;
+            border-radius: 10px;
         }
 
         html {
@@ -123,8 +124,13 @@
             background-image: none;
             border-color: #e8344e;
         }
-        #btn-save{
-            margin-right:-20%;
+
+        #btn-save {
+            margin-right: -20%;
+        }
+
+        .card {
+            border-width: 1.5px;
         }
     </style>
 </head>
@@ -189,8 +195,10 @@
                                 <h1 id="word" style="display: inline;"></h1>
                                 <h5 id="pronunciation" style="display: inline;"></h5>
                             </div>
-                            <button onclick="save_word()" id="btn-save" class="btn btn-outline-sparta btn-lg">save</button>
-                            <button onclick="delete_word()" id="btn-delete" class="btn btn-sparta btn-lg">delete</button>
+                            <button onclick="save_word()" id="btn-save"
+                                class="btn btn-outline-sparta btn-lg">save</button>
+                            <button onclick="delete_word()" id="btn-delete"
+                                class="btn btn-sparta btn-lg">delete</button>
                         </div>
                         <hr>
                         <div id="definitions">
@@ -235,7 +243,7 @@
             return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
         var word = getParameterByName('word');
-        var first_definition="";
+        var first_definition = "";
 
         $(document).ready(function () {
             get_definitions()
@@ -257,17 +265,16 @@
                     console.log(response)
                     $("#word").text(response["word"])
                     //발음기호 null이면 공백처리.
-                    if (response["pronunciation"]==null) {
+                    if (response["pronunciation"] == null) {
                         $("#pronunciation").text("")
                     } else {
                         $("#pronunciation").text(`/${response["pronunciation"]}/`)
                     }
-                   // $("#pronunciation").text(`/${response["pronunciation"]}/`)
                     $("#definitions").empty()
                     let definitions = response["definitions"]
 
                     //첫번째 definition만 사용자 단어장에 저장.
-                    first_definition=definitions[0]['definition'];
+                    first_definition = definitions[0]['definition'];
 
                     for (let i = 0; i < definitions.length; i++) {
                         let definition = definitions[i]
@@ -294,7 +301,7 @@
                     definition: first_definition
                 },
                 headers: {
-                  authorization: `Bearer ${localStorage.getItem("token")}`,
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
                 success: function (response) {
                     alert(response["msg"])
@@ -315,7 +322,7 @@
                     definition: first_definition
                 },
                 headers: {
-                  authorization: `Bearer ${localStorage.getItem("token")}`,
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
                 success: function (response) {
                     alert(response["msg"])
@@ -323,7 +330,7 @@
                 }
             });
         }
-        
+
 
     </script>
 
