@@ -16,7 +16,7 @@ router.post("/save_result", authMiddleware, async (req, res) => {
   isExist = await Log.find({ userId, sentence });
 
   if (isExist.length !== 0) {
-    res.send({ result: "fail", msg: "이미 저장된 문장입니다.", user });
+    res.send({ result: "fail", msg: "점수가 업데이트 되었습니다.", user });
     return;
   } else {
     await Log.create({ userId, sentence, score, date });

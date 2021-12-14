@@ -199,6 +199,10 @@
             alert(response["msg"]);
             window.location.href = "/html/menu.html";
           },
+          error: function (error) {
+            console.log("make room fail");
+            alert(error.responseJSON.msg);
+          },
         });
       }
 

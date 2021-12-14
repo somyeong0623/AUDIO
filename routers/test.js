@@ -24,7 +24,7 @@ router.post("/sentences", authMiddleware, async (req, res) => {
 //발음평가 api test해서
 router.post("/test", multipartMiddleware, async (req, res) => {
   console.log("test api 실행!");
-
+  score = 3.6565;
   const { fname, sentence } = req.body;
   const data = req.files.data;
   const path = data.path;
