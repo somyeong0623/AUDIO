@@ -1,339 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
 
     <!-- Font Awesome CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
     <link href="/mystyle.css" rel="stylesheet" />
-    <title> AUDIO | menu</title>
+    <title>AUDIO | menu</title>
     <style>
-        .wrap {
-            width: 80%;
-        }
+      .wrap {
+        width: 80%;
+      }
 
-        strong {
-            padding-left: 5px;
-        }
+      strong {
+        padding-left: 5px;
+      }
 
-        .card {
-            cursor: pointer;
-            margin-top: 30px;
-            border-color: #b232b2 !important;
-            border-radius: 10px;
-        }
+      .card {
+        cursor: pointer;
+        margin-top: 30px;
+        border-color: #b232b2 !important;
+        border-radius: 10px;
+      }
 
-        html {
-            overflow: auto;
-        }
+      html {
+        overflow: auto;
+      }
 
-        .wrap_voca {
-            max-width: 900px;
-            margin: 10px auto;
-        }
+      .wrap_voca {
+        max-width: 900px;
+        margin: 10px auto;
+      }
 
-        .search-box {
-            width: 85%;
-            margin: 30px auto;
-            max-width: 800px;
-        }
+      .search-box {
+        width: 85%;
+        margin: 30px auto;
+        max-width: 800px;
+      }
 
-        .table {
-            width: 85%;
-            max-width: 800px;
-            margin: auto;
-            table-layout: fixed;
-        }
+      .table {
+        width: 85%;
+        max-width: 800px;
+        margin: auto;
+        table-layout: fixed;
+      }
 
-        .table th {
-            border-top-style: none;
-        }
+      .table th {
+        border-top-style: none;
+      }
 
-        td {
-            background-color: white;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-        }
+      td {
+        background-color: white;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
 
-        td>a,
-        a:visited,
-        a:hover,
-        a:active {
-            color: black;
-        }
+      td > a,
+      a:visited,
+      a:hover,
+      a:active {
+        color: black;
+      }
 
-        tr.highlight>td {
-            background-color: #e8344e;
-            color: white;
-        }
+      tr.highlight > td {
+        background-color: #e8344e;
+        color: white;
+      }
 
-        tr.highlight a {
-            color: white;
-        }
+      tr.highlight a {
+        color: white;
+      }
 
-        thead:first-child tr:first-child th:first-child {
-            border-radius: 10px 0 0 0;
-        }
+      thead:first-child tr:first-child th:first-child {
+        border-radius: 10px 0 0 0;
+      }
 
-        thead:first-child tr:first-child th:last-child {
-            border-radius: 0 10px 0 0;
-        }
+      thead:first-child tr:first-child th:last-child {
+        border-radius: 0 10px 0 0;
+      }
 
-        tbody:last-child tr:last-child td:first-child {
-            border-radius: 0 0 0 10px;
-        }
+      tbody:last-child tr:last-child td:first-child {
+        border-radius: 0 0 0 10px;
+      }
 
-        tbody:last-child tr:last-child td:last-child {
-            border-radius: 0 0 10px 0;
-        }
+      tbody:last-child tr:last-child td:last-child {
+        border-radius: 0 0 10px 0;
+      }
 
-        .container {
-            width: 80%;
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: white;
+      .container {
+        width: 80%;
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: white;
 
-            border: solid 1px gray;
-            border-radius: 10px;
-        }
+        border: solid 1px gray;
+        border-radius: 10px;
+      }
 
-        span.example {
-            color: gray;
-            font-size: 14px;
-        }
+      span.example {
+        color: gray;
+        font-size: 14px;
+      }
 
-        .btn-sparta {
-            color: #fff;
-            background-color: #e8344e;
-            border-color: #e8344e;
-        }
+      .btn-sparta {
+        color: #fff;
+        background-color: #e8344e;
+        border-color: #e8344e;
+      }
 
-        .btn-outline-sparta {
-            color: #e8344e;
-            background-color: transparent;
-            background-image: none;
-            border-color: #e8344e;
-        }
+      .btn-outline-sparta {
+        color: #e8344e;
+        background-color: transparent;
+        background-image: none;
+        border-color: #e8344e;
+      }
 
-        #btn-save {
-            margin-right: -20%;
-        }
+      #btn-save {
+        margin-right: -20%;
+      }
 
-        .card {
-            border-width: 1.5px;
-        }
+      .card {
+        border-width: 1.5px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-sparta justify-content-end">
-        <a class="navbar-brand" href="/html/menu.html">
-            <img src="../img/home.png" width="30" height="30" class="d-inline-block align-top" alt="" />
-            <strong>AUDIO</strong>
-        </a>
-        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse flex-grow-0 ml-auto" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto text-right">
-                <li class="nav-item" id="link-cart">
-                    <a class="nav-link" href="/cart.html">
-                        마이페이지<i class="fa fa-user ml-2" aria-hidden="true"></i>
-                    </a>
-                </li>
-                <li class="nav-item" id="link-logout">
-                    <a class="nav-link" data-toggle="modal" data-target="#signOutModal">
-                        로그아웃<i class="fa fa-sign-out ml-2" aria-hidden="true"></i>
-                    </a>
-                    <div class="modal text-left" id="signOutModal" tabindex="-1" role="dialog"
-                        aria-labelledby="signOutModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="signOutModalLabel">로그아웃</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    정말로 로그아웃 하시겠습니까?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-sparta" data-dismiss="modal">
-                                        취소
-                                    </button>
-                                    <button type="button" class="btn btn-sparta" onclick="signOut()">
-                                        로그아웃하기
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
+  <body>
+    <nav
+      class="navbar navbar-expand-sm navbar-dark bg-sparta justify-content-end"
+    >
+      <a class="navbar-brand" href="/html/menu.html">
+        <img
+          src="../img/home.png"
+          width="30"
+          height="30"
+          class="d-inline-block align-top"
+          alt=""
+        />
+        <strong>AUDIO</strong>
+      </a>
+      <button
+        class="navbar-toggler ml-auto"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="true"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="navbar-collapse collapse flex-grow-0 ml-auto"
+        id="navbarSupportedContent"
+      >
+        <ul class="navbar-nav mr-auto text-right">
+          <li class="nav-item" id="link-cart">
+            <a class="nav-link" href="/html/mypage.html">
+              마이페이지<i class="fa fa-user ml-2" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li class="nav-item" id="link-logout">
+            <a class="nav-link" data-toggle="modal" data-target="#signOutModal">
+              로그아웃<i class="fa fa-sign-out ml-2" aria-hidden="true"></i>
+            </a>
+            <div
+              class="modal text-left"
+              id="signOutModal"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="signOutModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="signOutModalLabel">로그아웃</h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">정말로 로그아웃 하시겠습니까?</div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-outline-sparta"
+                      data-dismiss="modal"
+                    >
+                      취소
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-sparta"
+                      onclick="signOut()"
+                    >
+                      로그아웃하기
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </nav>
     <div class="wrap menu-wrap">
-        <div class="card mx-auto" style="max-width: 1000px">
-            <div class="card-body">
-                <div class="wrap_voca">
-                    <div class="container">
-                        <div class="d-flex justify-content-between align-items-end">
-                            <div>
-                                <h1 id="word" style="display: inline;"></h1>
-                                <h5 id="pronunciation" style="display: inline;"></h5>
-                            </div>
-                            <button onclick="save_word()" id="btn-save"
-                                class="btn btn-outline-sparta btn-lg">save</button>
-                            <button onclick="delete_word()" id="btn-delete"
-                                class="btn btn-sparta btn-lg">delete</button>
-                        </div>
-                        <hr>
-                        <div id="definitions">
-
-                        </div>
-                    </div>
-
-
-
+      <div class="card mx-auto" style="max-width: 1000px">
+        <div class="card-body">
+          <div class="wrap_voca">
+            <div class="container">
+              <div class="d-flex justify-content-between align-items-end">
+                <div>
+                  <h1 id="word" style="display: inline"></h1>
+                  <h5 id="pronunciation" style="display: inline"></h5>
                 </div>
+                <button
+                  onclick="save_word()"
+                  id="btn-save"
+                  class="btn btn-outline-sparta btn-lg"
+                >
+                  save
+                </button>
+                <button
+                  onclick="delete_word()"
+                  id="btn-delete"
+                  class="btn btn-sparta btn-lg"
+                >
+                  delete
+                </button>
+              </div>
+              <hr />
+              <div id="definitions"></div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
-        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
-        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
-        crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+      integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
 
     <script src="/api.js"></script>
     <script>
-        let user;
-        getSelf(function (u) {
-            console.log("getself함수 실행")
-            user = u;
-        });
+      let user;
+      getSelf(function (u) {
+        console.log("getself함수 실행");
+        user = u;
+      });
 
+      function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+        return results == null
+          ? ""
+          : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+      var word = getParameterByName("word");
+      var first_definition = "";
 
-        function getParameterByName(name) {
-            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                results = regex.exec(location.search);
-            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-        }
-        var word = getParameterByName('word');
-        var first_definition = "";
+      $(document).ready(function () {
+        get_definitions();
+      });
 
-        $(document).ready(function () {
-            get_definitions()
-        })
+      function get_definitions() {
+        $.ajax({
+          type: "GET",
+          url: `https://owlbot.info/api/v4/dictionary/${word}`,
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(
+              "Authorization",
+              "Token 59641d32a0d3eb47e6e015dad90efcf45e32eec6"
+            );
+          },
+          data: {},
+          error: function (xhr, status, error) {
+            alert("에러 발생!");
+            window.location.href = "/html/voca.html";
+          },
+          success: function (response) {
+            console.log(response);
+            $("#word").text(response["word"]);
+            //발음기호 null이면 공백처리.
+            if (response["pronunciation"] == null) {
+              $("#pronunciation").text("");
+            } else {
+              $("#pronunciation").text(`/${response["pronunciation"]}/`);
+            }
+            $("#definitions").empty();
+            let definitions = response["definitions"];
 
-        function get_definitions() {
-            $.ajax({
-                type: "GET",
-                url: `https://owlbot.info/api/v4/dictionary/${word}`,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", "Token 59641d32a0d3eb47e6e015dad90efcf45e32eec6");
-                },
-                data: {},
-                error: function (xhr, status, error) {
-                    alert("에러 발생!");
-                    window.location.href = "/html/voca.html"
-                },
-                success: function (response) {
-                    console.log(response)
-                    $("#word").text(response["word"])
-                    //발음기호 null이면 공백처리.
-                    if (response["pronunciation"] == null) {
-                        $("#pronunciation").text("")
-                    } else {
-                        $("#pronunciation").text(`/${response["pronunciation"]}/`)
-                    }
-                    $("#definitions").empty()
-                    let definitions = response["definitions"]
+            //첫번째 definition만 사용자 단어장에 저장.
+            first_definition = definitions[0]["definition"];
 
-                    //첫번째 definition만 사용자 단어장에 저장.
-                    first_definition = definitions[0]['definition'];
-
-                    for (let i = 0; i < definitions.length; i++) {
-                        let definition = definitions[i]
-                        let html_temp = `<div style="padding:10px">
+            for (let i = 0; i < definitions.length; i++) {
+              let definition = definitions[i];
+              let html_temp = `<div style="padding:10px">
                         <i>${definition["type"]}</i>
                         <br>${definition["definition"]}<br>
                         <span class="example">${definition["example"]}</span>
-                    </div>`
-                        $("#definitions").append(html_temp)
-                    }
-                }
-            })
-        }
+                    </div>`;
+              $("#definitions").append(html_temp);
+            }
+          },
+        });
+      }
 
-        function save_word(callback) {
-            console.log("save_word()함수 시작!");
-            console.log("word: ", word);
-            console.log("first_definition: ", first_definition);
-            $.ajax({
-                type: "POST",
-                url: `/api/save_word`,
-                data: {
-                    word: word,
-                    definition: first_definition
-                },
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-                success: function (response) {
-                    alert(response["msg"])
-                    window.location.href = "/html/voca.html"
-                }
-            });
-        }
+      function save_word(callback) {
+        console.log("save_word()함수 시작!");
+        console.log("word: ", word);
+        console.log("first_definition: ", first_definition);
+        $.ajax({
+          type: "POST",
+          url: `/api/save_word`,
+          data: {
+            word: word,
+            definition: first_definition,
+          },
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          success: function (response) {
+            alert(response["msg"]);
+            window.location.href = "/html/voca.html";
+          },
+        });
+      }
 
-        function delete_word(callback) {
-            console.log("delete_word()함수 시작!");
-            console.log("word: ", word);
-            console.log("first_definition: ", first_definition);
-            $.ajax({
-                type: "DELETE",
-                url: `/api/delete_word`,
-                data: {
-                    word: word,
-                    definition: first_definition
-                },
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-                success: function (response) {
-                    alert(response["msg"])
-                    window.location.href = "/html/voca.html"
-                }
-            });
-        }
-
-
+      function delete_word(callback) {
+        console.log("delete_word()함수 시작!");
+        console.log("word: ", word);
+        console.log("first_definition: ", first_definition);
+        $.ajax({
+          type: "DELETE",
+          url: `/api/delete_word`,
+          data: {
+            word: word,
+            definition: first_definition,
+          },
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          success: function (response) {
+            alert(response["msg"]);
+            window.location.href = "/html/voca.html";
+          },
+        });
+      }
     </script>
-
-</body>
-
+  </body>
 </html>

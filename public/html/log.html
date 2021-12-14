@@ -23,17 +23,100 @@
       rel="stylesheet"
     />
     <link href="/mystyle.css" rel="stylesheet" />
-    <title>AUDIO - menu</title>
+    <title>AUDIO | menu</title>
     <style>
+      .wrap {
+        width: 80%;
+      }
       strong {
         padding-left: 5px;
       }
       .card {
         cursor: pointer;
+        margin-top: 30px;
+        border-color: #b232b2 !important;
       }
 
       html {
         overflow: auto;
+      }
+
+      .wrap_voca {
+        max-width: 900px;
+        margin: 10px auto;
+      }
+      .search-box {
+        width: 85%;
+        margin: 30px auto;
+        max-width: 800px;
+      }
+
+      .table {
+        width: 85%;
+        max-width: 800px;
+        margin: auto;
+        table-layout: fixed;
+      }
+
+      .table th {
+        border-top-style: none;
+      }
+
+      td {
+        background-color: white;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      td > a,
+      a:visited,
+      a:hover,
+      a:active {
+        color: black;
+      }
+
+      tr.highlight > td {
+        background-color: #b232b2;
+        color: white;
+      }
+
+      tr.highlight a {
+        color: white;
+      }
+
+      thead:first-child tr:first-child th:first-child {
+        border-radius: 10px 0 0 0;
+      }
+
+      thead:first-child tr:first-child th:last-child {
+        border-radius: 0 10px 0 0;
+      }
+
+      tbody:last-child tr:last-child td:first-child {
+        border-radius: 0 0 0 10px;
+      }
+
+      tbody:last-child tr:last-child td:last-child {
+        border-radius: 0 0 10px 0;
+      }
+      .form-control {
+        background-color: #e9ecef;
+      }
+      .btn-light {
+        background-color: #e9ecef;
+      }
+      .card {
+        border-width: 1.5px;
+      }
+      .thead:first-child tr:first-child th:last-child {
+        width: 15%;
+      }
+      .table .thead-light th {
+        width: 15%;
+      }
+      .btn:not(:disabled):not(.disabled) {
+        margin-left: 20%;
       }
     </style>
   </head>
@@ -123,83 +206,24 @@
       </div>
     </nav>
     <div class="wrap menu-wrap">
-      <div class="card mx-auto" style="max-width: 70%">
+      <div class="card mx-auto" style="max-width: 1000px">
         <div class="card-body">
-          <div class="input-group mb-3">
-            <button
-              type="button"
-              id="call"
-              class="btn btn-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              전화
-            </button>
-            <button
-              type="button"
-              id="restaurant"
-              class="btn btn-outline-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              식당
-            </button>
-            <button
-              type="button"
-              id="hospital"
-              class="btn btn-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              병원
-            </button>
-            <button
-              type="button"
-              id="travel"
-              class="btn btn-outline-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              여행
-            </button>
-            <button
-              type="button"
-              id="business"
-              class="btn btn-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              비즈니스
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="modal text-left"
-      id="alertModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="alertModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="alertModalLabel">알림</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" id="alertText"></div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-outline-sparta"
-              data-dismiss="modal"
-            >
-              확인
-            </button>
+          <div class="wrap_voca">
+            <div class="search-box d-flex justify-content-center">
+              <h5><strong>내 기록을 확인하고, 점수를 갱신하세요!</strong></h5>
+            </div>
+
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" style="width: 30%">SENTENCE</th>
+                  <th scope="col">SCORE</th>
+                  <th scope="col">DATE</th>
+                  <th scope="col">DELETE</th>
+                </tr>
+              </thead>
+              <tbody id="log-box"></tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -232,6 +256,74 @@
         console.log("getself함수 실행");
         user = u;
       });
+
+      function get_log(callback) {
+        console.log("get_log()함수 시작!");
+        $.ajax({
+          type: "GET",
+          url: `/api/get_log`,
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          success: function (response) {
+            // callback(response.user);
+            let html_temp = "";
+            var logs = response["logs"];
+            console.log("logs 출력 : ", logs);
+
+            for (let i = 0; i < logs.length; i++) {
+              let log = logs[i];
+              let sentence = log["sentence"];
+              let score = log["score"];
+              let date = log["date"];
+
+              let score_100 = Math.ceil(score * 20 * 100) / 100;
+              console.log(sentence, score_100, date);
+
+              html_temp = `
+                  <tr id="log-${sentence}" value="${sentence}">
+                    <td><a href="/html/practice.html?value=${sentence}">${sentence}</a></td>
+                    <td>${score_100}</td>
+                    <td>${date}</td>
+                    <td><button class="btn btn-light delete_button"  data-sentence="${sentence}" onclick="delete_log()">
+                        <i class="fa fa-trash"></i>
+                      </button></td>
+                </tr>`;
+              $("#log-box").append(html_temp);
+            }
+          },
+        });
+      }
+
+      //사용자 로그 조회(출력)
+      $(document).ready(function () {
+        console.log("로딩!");
+        get_log();
+      });
+
+      function find_word() {
+        let word = $("#input-word").val().toLowerCase();
+        if (word == "") {
+          alert("please write something first :)");
+          return;
+        }
+        if (word_list.includes(word)) {
+          $(`#word-${word}`)
+            .addClass("highlight")
+            .siblings()
+            .removeClass("highlight");
+          $(`#word-${word}`).get(0).scrollIntoView();
+        } else {
+          window.location.href = `/html/voca_detail.html?word=${word}`;
+        }
+      }
+
+      function delete_log() {
+        let tr_ = $(".delete_button").parent().parent();
+        let sentence = tr_.text();
+        console.log("tr_: ", tr_);
+        console.log("setence: ", sentence);
+      }
     </script>
   </body>
 </html>

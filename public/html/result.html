@@ -184,7 +184,7 @@
       >
         <ul class="navbar-nav mr-auto text-right">
           <li class="nav-item" id="link-cart">
-            <a class="nav-link" href="/cart.html">
+            <a class="nav-link" href="/html/mypage.html">
               마이페이지<i class="fa fa-user ml-2" aria-hidden="true"></i>
             </a>
           </li>
@@ -260,15 +260,15 @@
             type="button"
             id="again"
             class="btn btn-outline-sparta btn-block"
-            onclick="window.location.reload()"
+            onclick="save_result()"
           >
-            다시하기
+            결과 저장하기
           </button>
           <button
             type="button"
             id="result"
             class="btn btn-sparta btn-block"
-            onclick="window.location.href='/html/result.html'"
+            onclick="window.location.href='/html/menu.html'"
           >
             메뉴도 돌아가기
           </button>
@@ -350,13 +350,41 @@
 
     if (localStorage.getItem("score")) {
       var score = localStorage.getItem("score");
-      var score_100 = score * 20;
+      var score_100 = Math.ceil(score * 20 * 100) / 100;
+      var sentence = localStorage.getItem("sentence");
+
       console.log("score_h: ", score_100);
+      console.log("sentence: ", sentence);
       //100점만점으로 환산
       $("#score_100").text(score_100);
       console.log("score: ", score);
     } else {
       console.log("score가 없어요");
+    }
+
+    function save_result(callback) {
+      var date = new Date();
+      console.log("save_result()함수 시작!");
+      console.log("sentence: ", sentence);
+      console.log("score: ", score);
+      console.log("date: ", date);
+
+      $.ajax({
+        type: "POST",
+        url: `/api/save_result`,
+        data: {
+          sentence: sentence,
+          score: score,
+          date: date,
+        },
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        success: function (response) {
+          alert(response["msg"]);
+          window.location.href = "/html/menu.html";
+        },
+      });
     }
   </script>
 </html>

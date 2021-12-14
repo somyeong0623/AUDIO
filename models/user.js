@@ -4,6 +4,7 @@ const UserSchema = new mongoose.Schema({
   email: String,
   nickname: String,
   password: String,
+  status: String,
 });
 
 //프론트엔드에서 userId 값을 참조하고있음.
@@ -13,4 +14,4 @@ UserSchema.virtual("userId").get(function () {
 UserSchema.set("toJSON", {
   virtuals: true,
 });
-module.exports = mongoose.model("User", UserSchema)
+module.exports = mongoose.model("User", UserSchema);

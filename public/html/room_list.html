@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <!-- Bootstrap CSS -->
     <link
@@ -22,8 +22,8 @@
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
-    <link href="/mystyle.css" rel="stylesheet" />
-    <title>AUDIO - menu</title>
+    <link href="../mystyle.css" rel="stylesheet" />
+    <title>AUDIO | natives</title>
     <style>
       strong {
         padding-left: 5px;
@@ -123,82 +123,24 @@
       </div>
     </nav>
     <div class="wrap menu-wrap">
-      <div class="card mx-auto" style="max-width: 70%">
+      <div class="card mx-auto" style="max-width: 480px">
         <div class="card-body">
-          <div class="input-group mb-3">
+          <div class="input-group mb-3" id="roomlist">
             <button
               type="button"
-              id="call"
+              value="Mary"
               class="btn btn-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
+              onclick="make_room2()"
             >
-              전화
+              방 생성하기
             </button>
             <button
               type="button"
-              id="restaurant"
+              value="Bob"
               class="btn btn-outline-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
+              onclick="enter_room('Bob')"
             >
-              식당
-            </button>
-            <button
-              type="button"
-              id="hospital"
-              class="btn btn-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              병원
-            </button>
-            <button
-              type="button"
-              id="travel"
-              class="btn btn-outline-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              여행
-            </button>
-            <button
-              type="button"
-              id="business"
-              class="btn btn-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              비즈니스
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="modal text-left"
-      id="alertModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="alertModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="alertModalLabel">알림</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" id="alertText"></div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-outline-sparta"
-              data-dismiss="modal"
-            >
-              확인
+              방 목록
             </button>
           </div>
         </div>
@@ -227,11 +169,56 @@
 
     <script src="/api.js"></script>
     <script>
+      function customAlert(text) {
+        $("#alertText").text(text);
+        $("#alertModal").modal("show");
+      }
+
       let user;
+      let user_name;
       getSelf(function (u) {
         console.log("getself함수 실행");
         user = u;
+        user_name = user.nickname;
       });
+
+      get_roomlist();
+
+      function get_roomlist(callback) {
+        $("#roomlist").empty();
+        $.ajax({
+          type: "GET",
+          url: "/api/room_list",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          success: function (response) {
+            console.log("roomlist upload");
+            let rooms = response["rooms"];
+            const count = rooms.length;
+
+            for (let i = 0; i < count; i++) {
+              let curRoom = rooms[i].host;
+              let room = "";
+              if (i % 2 !== 0) {
+                room = `<button type="button" value="${curRoom}"
+                class="btn btn-outline-sparta btn-block"
+                onclick="window.location.href='/html/room.html?roomName='+this.value">
+                ${curRoom}
+                </button>`;
+              } else {
+                room = `<button type="button" value="${curRoom}"
+                class="btn btn-sparta btn-block"
+                onclick="window.location.href='/html/room.html?roomName='+this.value">
+                ${curRoom}
+                </button>`;
+              }
+
+              $("#roomlist").append(room);
+            }
+          },
+        });
+      }
     </script>
   </body>
 </html>

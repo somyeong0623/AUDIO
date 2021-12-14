@@ -109,8 +109,12 @@ if (navigator.mediaDevices.getUserMedia) {
         success: function (data) {
           console.log("성공!");
           score = data["score"];
+          sentence = data["sentence"];
           console.log("score: ", score);
+          console.log("sentence: ", sentence);
+
           localStorage.setItem("score", score);
+          localStorage.setItem("sentence", sentence);
           console.log(
             "localStroage.getItem('score'): ",
             localStorage.getItem("score")

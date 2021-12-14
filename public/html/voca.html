@@ -23,90 +23,92 @@
       rel="stylesheet"
     />
     <link href="/mystyle.css" rel="stylesheet" />
-    <title> AUDIO | menu</title>
+    <title>AUDIO | menu</title>
     <style>
-      .wrap{
+      .wrap {
         width: 80%;
       }
       strong {
-        padding-left:5px;
+        padding-left: 5px;
       }
       .card {
         cursor: pointer;
-        margin-top:30px;
+        margin-top: 30px;
         border-color: #b232b2 !important;
       }
 
       html {
         overflow: auto;
       }
-    
-      .wrap_voca{
-            max-width: 900px;
-            margin: 10px auto;
+
+      .wrap_voca {
+        max-width: 900px;
+        margin: 10px auto;
       }
       .search-box {
         width: 85%;
         margin: 30px auto;
         max-width: 800px;
-    }
+      }
 
-    .table {
+      .table {
         width: 85%;
         max-width: 800px;
         margin: auto;
         table-layout: fixed;
-    }
+      }
 
-    .table th {
+      .table th {
         border-top-style: none;
-    }
+      }
 
-    td {
+      td {
         background-color: white;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-    }
+      }
 
-    td > a, a:visited, a:hover, a:active {
+      td > a,
+      a:visited,
+      a:hover,
+      a:active {
         color: black;
-    }
+      }
 
-    tr.highlight > td {
+      tr.highlight > td {
         background-color: #b232b2;
         color: white;
-    }
+      }
 
-    tr.highlight a {
+      tr.highlight a {
         color: white;
-    }
+      }
 
-    thead:first-child tr:first-child th:first-child {
+      thead:first-child tr:first-child th:first-child {
         border-radius: 10px 0 0 0;
-    }
+      }
 
-    thead:first-child tr:first-child th:last-child {
+      thead:first-child tr:first-child th:last-child {
         border-radius: 0 10px 0 0;
-    }
+      }
 
-    tbody:last-child tr:last-child td:first-child {
+      tbody:last-child tr:last-child td:first-child {
         border-radius: 0 0 0 10px;
-    }
+      }
 
-    tbody:last-child tr:last-child td:last-child {
+      tbody:last-child tr:last-child td:last-child {
         border-radius: 0 0 10px 0;
-    }
-    .form-control{
-      background-color:#e9ecef;
-    }
-    .btn-light{
-      background-color:#e9ecef;
-    }
-    .card{
-      border-width:1.5px;
-    }
-      
+      }
+      .form-control {
+        background-color: #e9ecef;
+      }
+      .btn-light {
+        background-color: #e9ecef;
+      }
+      .card {
+        border-width: 1.5px;
+      }
     </style>
   </head>
 
@@ -141,11 +143,8 @@
       >
         <ul class="navbar-nav mr-auto text-right">
           <li class="nav-item" id="link-cart">
-            <a class="nav-link" href="/cart.html">
-              마이페이지<i
-                class="fa fa-user ml-2"
-                aria-hidden="true"
-              ></i>
+            <a class="nav-link" href="/html/mypage.html">
+              마이페이지<i class="fa fa-user ml-2" aria-hidden="true"></i>
             </a>
           </li>
           <li class="nav-item" id="link-logout">
@@ -173,9 +172,7 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">
-                    정말로 로그아웃 하시겠습니까?
-                  </div>
+                  <div class="modal-body">정말로 로그아웃 하시겠습니까?</div>
                   <div class="modal-footer">
                     <button
                       type="button"
@@ -202,33 +199,32 @@
     <div class="wrap menu-wrap">
       <div class="card mx-auto" style="max-width: 1000px">
         <div class="card-body">
-            <div class="wrap_voca">
-                
-                <div class="search-box d-flex justify-content-center">
-                    <input id="input-word" class="form-control" style="margin-right: 0.5rem">
-                    <button class="btn btn-light" onclick="find_word()"><i class="fa fa-search"></i></button>
-                </div>
-                
-                <table class="table">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col" style="width:30%">WORD</th>
-                            <th scope="col">MEANING</th>
-    
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-box">
-                       
-                    </tbody>
-                </table>
+          <div class="wrap_voca">
+            <div class="search-box d-flex justify-content-center">
+              <input
+                id="input-word"
+                class="form-control"
+                style="margin-right: 0.5rem"
+              />
+              <button class="btn btn-light" onclick="find_word()">
+                <i class="fa fa-search"></i>
+              </button>
             </div>
-         
-     
+
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" style="width: 30%">WORD</th>
+                  <th scope="col">MEANING</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-box"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-   
-      
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
@@ -253,67 +249,66 @@
     <script>
       let user;
       getSelf(function (u) {
-        console.log("getself함수 실행")
+        console.log("getself함수 실행");
         user = u;
       });
 
       let word_list = [];
-     
+
       function get_word(callback) {
         console.log("get_word()함수 시작!");
         $.ajax({
-            type: "GET",
-            url: `/api/words`,
-            headers: {
-              authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            success: function (response) {
-               // callback(response.user);
-               let html_temp="";
-                var words=response['words'];
-                console.log("words 출력 : ",words);
-                
-                for(let i=0; i<words.length; i++){
-                  let word= words[i];
-                  let value=word['word'];
-                  let definition=word['definition'];
-                  console.log( value, definition);
-                  word_list.push(value);
+          type: "GET",
+          url: `/api/words`,
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          success: function (response) {
+            // callback(response.user);
+            let html_temp = "";
+            var words = response["words"];
+            console.log("words 출력 : ", words);
 
-                  
-                  html_temp=`
+            for (let i = 0; i < words.length; i++) {
+              let word = words[i];
+              let value = word["word"];
+              let definition = word["definition"];
+              console.log(value, definition);
+              word_list.push(value);
+
+              html_temp = `
                   <tr id="word-${value}">
                     <td><a href="/html/voca_detail.html?word=${value}">${value}</a></td>
                     <td>${definition}</td>
-                </tr>`
-                $("#tbody-box").append(html_temp);
-                }
-               
+                </tr>`;
+              $("#tbody-box").append(html_temp);
             }
+          },
         });
-    }
+      }
 
       //사용자 단어장 조회(출력)
-      $(document).ready(function() {
+      $(document).ready(function () {
         console.log("로딩!");
         get_word();
-      })
+      });
 
-
-      function find_word(){
+      function find_word() {
         let word = $("#input-word").val().toLowerCase();
         if (word == "") {
-            alert("please write something first :)")
-            return
+          alert("please write something first :)");
+          return;
         }
         if (word_list.includes(word)) {
-            $(`#word-${word}`).addClass('highlight').siblings().removeClass('highlight');
-            $(`#word-${word}`).get(0).scrollIntoView();
+          $(`#word-${word}`)
+            .addClass("highlight")
+            .siblings()
+            .removeClass("highlight");
+          $(`#word-${word}`).get(0).scrollIntoView();
         } else {
-            window.location.href = `/html/voca_detail.html?word=${word}`;
+          window.location.href = `/html/voca_detail.html?word=${word}`;
         }
       }
     </script>
-    
   </body>
 </html>

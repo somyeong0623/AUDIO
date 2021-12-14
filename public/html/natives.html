@@ -22,43 +22,18 @@
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
-    <link href="/mystyle.css" rel="stylesheet" />
-    <title> AUDIO | menu</title>
+    <link href="../mystyle.css" rel="stylesheet" />
+    <title>AUDIO | natives</title>
     <style>
-
       strong {
-        padding-left:5px;
+        padding-left: 5px;
       }
       .card {
         cursor: pointer;
-        margin-top:30px;
-        border-color: #b232b2 !important;
       }
 
       html {
         overflow: auto;
-      }
-
-      video {
-        width: 400px;
-        height: 400px;
-        
-      }
-
-      #myStream{
-        width: 45%;
-        border: 1px solid black;
-        float: left;
-        padding: 10px;
-        overflow: hidden;
-      }
-
-      #peerStream{
-        width: 45%;
-        border: 1px solid black;
-        float: right;
-        padding: 10px;
-        overflow: hidden;
       }
     </style>
   </head>
@@ -94,11 +69,8 @@
       >
         <ul class="navbar-nav mr-auto text-right">
           <li class="nav-item" id="link-cart">
-            <a class="nav-link" href="/cart.html">
-              마이페이지<i
-                class="fas fa-user ml-2"
-                aria-hidden="true"
-              ></i>
+            <a class="nav-link" href="/html/mypage.html">
+              마이페이지<i class="fa fa-user ml-2" aria-hidden="true"></i>
             </a>
           </li>
           <li class="nav-item" id="link-logout">
@@ -126,9 +98,7 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">
-                    정말로 로그아웃 하시겠습니까?
-                  </div>
+                  <div class="modal-body">정말로 로그아웃 하시겠습니까?</div>
                   <div class="modal-footer">
                     <button
                       type="button"
@@ -152,34 +122,47 @@
         </ul>
       </div>
     </nav>
-    <div style="max-width: 1000px; margin: 10px auto;">
-      <div class="card mx-auto">
+    <div class="wrap menu-wrap">
+      <div class="card mx-auto" style="max-width: 480px">
         <div class="card-body">
           <div class="input-group mb-3" id="roomlist">
-            <button class="btn btn-sparta btn-block">ROOM 1</button>
-            <button class="btn btn-sparta btn-block">ROOM 2</button>
-            <button class="btn btn-sparta btn-block">ROOM 3</button>
-            <button class="btn btn-sparta btn-block">ROOM 4</button>
-            <button class="btn btn-sparta btn-block">ROOM 5</button>
+            <button
+              type="button"
+              value="Mary"
+              class="btn btn-sparta btn-block"
+              onclick="enter_room('Mary')"
+            >
+              Mary
+            </button>
+            <button
+              type="button"
+              value="Bob"
+              class="btn btn-outline-sparta btn-block"
+              onclick="enter_room('Bob')"
+            >
+              Bob
+            </button>
+            <button
+              type="button"
+              value="Kim"
+              class="btn btn-sparta btn-block"
+              onclick="enter_room('Kim')"
+            >
+              Kim
+            </button>
+            <button
+              type="button"
+              value="Lee"
+              class="btn btn-outline-sparta btn-block"
+              onclick="enter_room('Lee')"
+            >
+              Lee
+            </button>
           </div>
-          <div id="call">
-            <div id="myStream">
-                <video id="myFace" autoplay playsinline></video>
-                <button id="mute">Mute</button>
-                <button id="camera">Turn Camera Off</button>
-                <button id="quit">Leave</button>
-                <select id="cameras"></select>
-            </div>
-            <div id="peerStream">
-              <video id="peersFace" autoplay playsinline></video>
-            </div>
-          </div>
-       </div>
+        </div>
       </div>
-      <script src="/socket.io/socket.io.js"></script>
-      <script src="../js/rtc.js"></script>    
-   
-      
+    </div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
@@ -203,11 +186,21 @@
     <script src="/api.js"></script>
     <script>
       let user;
+      let user_name;
       getSelf(function (u) {
-        console.log("getself함수 실행")
+        console.log("getself함수 실행");
         user = u;
+        user_name = user.nickname;
       });
 
-    </script>    
+      function enter_room(name) {
+        console.log("enter_room 실행!");
+        if (name == user_name) {
+          window.location.href = "/html/room.html?roomName=" + name;
+        } else {
+          alert("해당 원어민만 입장 할 수 있습니다.");
+        }
+      }
+    </script>
   </body>
 </html>

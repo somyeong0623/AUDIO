@@ -24,6 +24,7 @@ router.post("/sentences", authMiddleware, async (req, res) => {
 //발음평가 api test해서
 router.post("/test", multipartMiddleware, async (req, res) => {
   console.log("test api 실행!");
+
   const { fname, sentence } = req.body;
   const data = req.files.data;
   const path = data.path;
@@ -38,7 +39,7 @@ router.post("/test", multipartMiddleware, async (req, res) => {
   // var openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/PronunciationKor"; //한국어
 
   var access_key = "3ca4f231-0a23-4c66-b15c-8c065418f5a9";
-  var languageCode = "korean";
+  var languageCode = "english";
   var script = sentence;
   // var script = "안녕하세요";
   console.log("script: ", script);
@@ -66,13 +67,14 @@ router.post("/test", multipartMiddleware, async (req, res) => {
     console.log("body " + body);
 
     const parseBody = JSON.parse(body);
+
     score = parseBody.return_object.score;
     console.log("score: ", score);
 
     // score = body.return_object["score"];
     // console.log(score);
   });
-  res.send({ result: "success", score: score });
+  res.send({ result: "success", score: score, sentence: script });
 });
 
 module.exports = router;

@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <!-- Bootstrap CSS -->
     <link
@@ -22,18 +22,61 @@
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
-    <link href="/mystyle.css" rel="stylesheet" />
-    <title>AUDIO - menu</title>
+    <link href="../mystyle.css" rel="stylesheet" />
+    <title> AUDIO | room </title>
     <style>
+      .camera{
+        margin-top:2%;
+      }
+      .but{
+        border-radius:0.25rem;
+      }
       strong {
-        padding-left: 5px;
+        padding-left:5px;
       }
       .card {
         cursor: pointer;
+        margin-top:30px;
+        border-color: #b232b2 !important;
+        width:80%;
+      }
+
+      #roomName{
+        border: 1px solid;
+        border-radius: 10px;
+        max-width: 100px;
+        text-align: center;        
       }
 
       html {
         overflow: auto;
+      }
+
+      video {
+        width: 130%;
+        height: 100%;
+        padding-right:30%;
+        
+      }
+
+      #myStream{
+        width: 48%;
+        border: 1px solid black;
+        float: left;
+        padding: 10px;
+        overflow: hidden;
+        border-radius:0.25rem;
+        border:1px solid #bdbebd;
+      }
+
+      #peerStream{
+        width: 48%;
+        border: 1px solid black;
+        float: right;
+        padding: 10px;
+        overflow: hidden;
+        border-radius:0.25rem;
+        border:1px solid #bdbebd;
       }
     </style>
   </head>
@@ -70,7 +113,10 @@
         <ul class="navbar-nav mr-auto text-right">
           <li class="nav-item" id="link-cart">
             <a class="nav-link" href="/html/mypage.html">
-              마이페이지<i class="fa fa-user ml-2" aria-hidden="true"></i>
+              마이페이지<i
+                class="fa fa-user ml-2"
+                aria-hidden="true"
+              ></i>
             </a>
           </li>
           <li class="nav-item" id="link-logout">
@@ -98,7 +144,9 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">정말로 로그아웃 하시겠습니까?</div>
+                  <div class="modal-body">
+                    정말로 로그아웃 하시겠습니까?
+                  </div>
                   <div class="modal-footer">
                     <button
                       type="button"
@@ -122,89 +170,26 @@
         </ul>
       </div>
     </nav>
-    <div class="wrap menu-wrap">
-      <div class="card mx-auto" style="max-width: 70%">
+    <div style="max-width: 1000px; margin: 10px auto;">
+      <div class="card mx-auto">
         <div class="card-body">
-          <div class="input-group mb-3">
-            <button
-              type="button"
-              id="call"
-              class="btn btn-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              전화
-            </button>
-            <button
-              type="button"
-              id="restaurant"
-              class="btn btn-outline-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              식당
-            </button>
-            <button
-              type="button"
-              id="hospital"
-              class="btn btn-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              병원
-            </button>
-            <button
-              type="button"
-              id="travel"
-              class="btn btn-outline-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              여행
-            </button>
-            <button
-              type="button"
-              id="business"
-              class="btn btn-sparta btn-block"
-              onclick="window.location.href='/html/sentence.html?category='+this.id"
-            >
-              비즈니스
-            </button>
+          <div id="call">
+            <div id="myStream">
+                <video id="myFace" autoplay playsinline></video>
+                <button class="but" id="mute"">Mute</button>
+                <button class="but" id="camera">Turn Camera Off</button>
+                <button class="but" id="leave" onclick="leave()">Leave</button>
+                <select class="camera" id="cameras"></select>
+            </div>
+            <div id="peerStream">
+              <video id="peersFace" autoplay playsinline></video>
+              <div id="roomName">roomName</div>
+            </div>
           </div>
-        </div>
+       </div>
       </div>
-    </div>
-    <div
-      class="modal text-left"
-      id="alertModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="alertModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="alertModalLabel">알림</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" id="alertText"></div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-outline-sparta"
-              data-dismiss="modal"
-            >
-              확인
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
+   
+      
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
@@ -229,9 +214,75 @@
     <script>
       let user;
       getSelf(function (u) {
-        console.log("getself함수 실행");
+        console.log("getself함수 실행")
         user = u;
+        console.log(user);
+       
       });
+      
+      function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+      let native = getParameterByName('roomName');
+      document.getElementById("roomName").innerText = native;
+    </script>
+    <script src="/socket.io/socket.io.js"></script> 
+    <script src="../js/rtc.js"></script>
+    <script>
+      const token = localStorage.getItem("token");
+
+      function join() {
+        $.ajax({
+          type: "POST",
+          url: `/api/join`,
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          success: function (response) {            
+            if(response === true){
+              alert("방에 이미 입장해있습니다.");
+              window.location.replace("/html/natives.html");
+            }
+            else {
+              console.log("room join success!");
+            }
+          },
+          error: function (error) {
+            console.log("room join fail");
+            customAlert(error.responseJSON.errorMessage);
+          },
+        });
+      }
+      
+      join();
+      
+      function leave(){
+        $.ajax({
+          type: "POST",
+          url: `/api/leave`,
+          data: {
+            token: token
+          },
+          success: function (response) {
+            if(response === true){
+              console.log("room leave success!");                        
+            }
+            window.location.replace("/html/natives.html");
+          },
+          error: function (error) {
+            console.log("room leave fail");
+            customAlert(error.responseJSON.errorMessage);
+          },
+        });
+      }
+
+      window.onbeforeunload = function(){
+        leave();
+        return;
+      }
     </script>
   </body>
 </html>
