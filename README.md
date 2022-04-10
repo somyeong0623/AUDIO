@@ -11,4 +11,4 @@
   - 주어진 문장 외에, 연습하고 싶은 문장을 직접 타이핑을 통해 추가하여 연습하기
     
 #### 구현 스택
-- HTML, CSS, JavaScript, NodeJS, MongoDB 사용
+- HTML, CSS, Javascript, Node.JS, MongoDB 사용
